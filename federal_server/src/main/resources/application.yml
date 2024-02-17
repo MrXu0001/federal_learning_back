@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: federal_server
+server:
+  port: 8000

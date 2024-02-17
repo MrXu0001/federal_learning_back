@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: federal_client1
+server:
+  port: 9000
