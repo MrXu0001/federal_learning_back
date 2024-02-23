@@ -20,18 +20,23 @@ message Request {
 
 // The response message containing the results.
 message Reply {
-    string n=1;
-    string n2=2;
-    string n3=3;
-    string x1 =4;
-    string y1 =5;
-    string r1 =6;
-    string r2 =7;
-    string r3 =8;
-    string r21=9;
-    string r22=10;
-    string c1=11;
-    string c2=12;
-    string columns=13;
-    string arr=14;
+    int32 n=1;
+    int32 n2=2;
+    int32 n3=3;
+
+    repeated string x1 =4;
+    repeated int32 y1 =5;
+
+    int32 r1 =6;
+    int32 r2 =7;
+    int32 r3 =8;
+    int32 r21=9;
+    int32 r22=10;
+    int32 c1=11;
+    int32 c2=12;
+
+    repeated string columns=13;
+    // string arr=14;
+
+    // string p=15;
 }

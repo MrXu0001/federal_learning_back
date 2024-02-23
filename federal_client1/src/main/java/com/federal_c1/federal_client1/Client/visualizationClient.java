@@ -34,7 +34,7 @@ public class visualizationClient {
      * Say hello to server.
      */
     public Map greet(String url) {
-        logger.info("Will try to greet " + url + " ...");
+        logger.info( url );
         io.grpc.examples.test.Request request = io.grpc.examples.test.Request.newBuilder()
                 .setDataUrl(url)
                 .build();
@@ -49,8 +49,8 @@ public class visualizationClient {
         params.put("n",response.getN()          );
         params.put("n2",response.getN2()          );
         params.put("n3",response.getN3()          );
-        params.put("x1",response.getX1()          );
-        params.put("y1",response.getY1()          );
+        params.put("x1",response.getX1(1)          );
+        params.put("y1",response.getY1(1)          );
         params.put("r1",response.getR1()          );
         params.put("r2",response.getR2()          );
         params.put("r3",response.getR3()          );
@@ -58,8 +58,8 @@ public class visualizationClient {
         params.put("r22",response.getR22()          );
         params.put("c1",response.getC1()          );
         params.put("c2",response.getC2()          );
-        params.put("columns",response.getColumns()          );
-        params.put("arr",response.getArr()          );
+        params.put("columns",response.getColumns(1)          );
+        //params.put("arr",response.getArr()          );
         System.out.println(params);
         return params;
     }
@@ -71,7 +71,7 @@ public class visualizationClient {
     public static void main(String[] args) throws Exception {
         visualizationClient client = new visualizationClient("127.0.0.1", 50051);
         try {
-            String data = "/Users/huangxiaoying/Downloads/titanic/train.csv";
+            String data = "C:\\works\\pycharmProject\\pythonProject1\\Friday-WorkingHours-Afternoon-DDos.pcap_ISCX55.csv";
             if (args.length > 0) {
                 data = args[0];
             }
