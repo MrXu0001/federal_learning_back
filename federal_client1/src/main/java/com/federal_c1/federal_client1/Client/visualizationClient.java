@@ -3,6 +3,7 @@ package com.federal_c1.federal_client1.Client;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.StatusRuntimeException;
+import io.grpc.examples.test.Reply;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -59,7 +60,11 @@ public class visualizationClient {
         params.put("c1",response.getC1()          );
         params.put("c2",response.getC2()          );
         params.put("columns",response.getColumns(1)          );
-        //params.put("arr",response.getArr()          );
+//        params.put("arr",response.getArr(1)          );
+//        System.out.println(response.getArrList());
+        for (Reply.Arr num : response.getArrList()) {
+            System.out.println(num.getValuesList());
+        }
         System.out.println(params);
         return params;
     }

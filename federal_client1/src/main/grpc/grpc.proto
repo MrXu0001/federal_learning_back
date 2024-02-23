@@ -36,7 +36,11 @@ message Reply {
     int32 c2=12;
 
     repeated string columns=13;
-    // string arr=14;
+
+    message Arr{
+        repeated double values = 1;
+    }
+    repeated Arr arr=14;
 
     // string p=15;
 }
