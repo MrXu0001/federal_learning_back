@@ -1,32 +1,52 @@
 package com.federal_s.federal_server.controller;
 
-
+import com.federal_s.federal_server.VO.SendVO;
 import com.federal_s.federal_server.config.WebSocketServer;
-import com.federal_s.federal_server.utils.R;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.*;
+
 import java.io.IOException;
+
+import com.federal.utils.R;
 
 
 @RestController
+@RequestMapping("/Server")
+@CrossOrigin
 public class WebSocketController {
 
-    @GetMapping("index")
-    public R index(){
-        return R.ok("请求成功");
-    }
-
-    @GetMapping("page")
-    public ModelAndView page(){
-        return new ModelAndView("websocket");
-    }
-
-    @RequestMapping("/push/{toUserId}")
-    public R pushToWeb(String message, @PathVariable String toUserId) throws IOException {
-        WebSocketServer.sendInfo(message,toUserId);
+    @PostMapping("/pushToGroup")
+    public R pushToGroup(@RequestBody SendVO sendVO) {
+//        sendVO.getToUserIds().forEach(toUserId -> {
+//            try {
+//                WebSocketServer.sendInfo(sendVO.getMessage(), toUserId);
+//            } catch (IOException e) {
+//                throw new RuntimeException(e);
+//            }
+//        });
+        for (String toUserId : sendVO.getToUserIds()) {
+            try {
+                WebSocketServer.sendInfo(sendVO.getMessage(), toUserId);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
         return R.ok("消息发送成功");
+    }
+
+    @PostMapping("/push/{toUserId}")  // 发送消息给指定用户
+    public R pushToOne(@RequestBody SendVO sendVO, @PathVariable String toUserId) throws IOException {
+        WebSocketServer.sendInfo(sendVO.getMessage(),toUserId);
+        return R.ok("消息发送成功");
+    }
+
+    @PostMapping("/push/all")
+    public R pushToAll(@RequestBody String message) {
+        WebSocketServer.sendAll(message);
+        return R.ok("消息发送成功");
+    }
+
+    @PostMapping("/connect")
+    public R connect() {
+        return R.ok("连接成功");
     }
 }

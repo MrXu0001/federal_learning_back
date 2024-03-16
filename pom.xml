@@ -6,6 +6,7 @@
     <modules>
         <module>federal_client1</module>
         <module>federal_server</module>
+        <module>common</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

@@ -10,9 +10,9 @@ import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 @Configuration  
 public class WebSocketConfig {
 
-    @Bean  
+    @Bean   // 自动注册使用@SererEndPoint注解的
     public ServerEndpointExporter serverEndpointExporter() {  
         return new ServerEndpointExporter();  
-    }  
-  
+    }
+
 } 

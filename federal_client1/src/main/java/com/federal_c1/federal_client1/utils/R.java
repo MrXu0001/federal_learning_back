@@ -1,4 +1,4 @@
-package com.federal_s.federal_server.utils;
+package com.federal_c1.federal_client1.utils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,7 +10,7 @@ public class R extends HashMap<String, Object> {
 	private static final long serialVersionUID = 1L;
 	
 	public R() {
-		put("code", 0);
+		put("code", 200);
 		put("msg", "success");
 	}
 	
