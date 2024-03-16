@@ -39,8 +39,8 @@ public class FileController {
         return R.ok("文件上传成功").put("url", url).put("trainId", train.getId());
     }
 
-    @GetMapping("/showDetail")
-    public R showDetail(@RequestParam("url") String url, @RequestParam("type") String type) {
+    @GetMapping("/showDetail1")
+    public R showDetail1(@RequestParam("url") String url, @RequestParam("type") String type) {
         VisualParams visualParams = client.dataInfo(url, type);
         LambdaQueryWrapper<Train> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(Train::getDataUrl, url);
@@ -48,6 +48,17 @@ public class FileController {
         one.setDataAnalysis(visualParams.getAnalysis());
         trainService.updateById(one);
 //        System.out.println(reply);
+        return R.ok().put("reply", visualParams.getAnalysis()).put("n", visualParams.getN()).
+                put("n2", visualParams.getN2()).put("n3", visualParams.getN3()).put("x1", visualParams.getX1()).
+                put("y1", visualParams.getY1()).put("r1", visualParams.getR1()).put("r2", visualParams.getR2()).
+                put("r3", visualParams.getR3()).put("r21", visualParams.getR21()).put("r22", visualParams.getR22()).
+                put("c1", visualParams.getC1()).put("c2", visualParams.getC2()).put("columns", visualParams.getColumns()).
+                put("arr", visualParams.getArr());
+    }
+
+    @GetMapping("/showDetail2")
+    public R showDetail2(@RequestParam("url") String url, @RequestParam("type") String type) {
+        VisualParams visualParams = client.dataInfo(url, type);
         return R.ok().put("reply", visualParams.getAnalysis()).put("n", visualParams.getN()).
                 put("n2", visualParams.getN2()).put("n3", visualParams.getN3()).put("x1", visualParams.getX1()).
                 put("y1", visualParams.getY1()).put("r1", visualParams.getR1()).put("r2", visualParams.getR2()).

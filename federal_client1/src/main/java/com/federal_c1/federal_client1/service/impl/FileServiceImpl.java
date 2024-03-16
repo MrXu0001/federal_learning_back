@@ -15,11 +15,51 @@ import org.joda.time.DateTime;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.UUID;
 
 @Service
 public class FileServiceImpl implements FileService {
+    @Override
+    public String uploadSimple(String filePath) {
+        COSClient cosClient = createCOSClient();
+        String bucketName = ConstantPropertiesUtil.BUCKET_NAME;
+        String key;
+
+        // 从本地文件路径中获取文件名
+        String fileName = new File(filePath).getName();
+        // 构造对象键(Key)
+        String dateTime = new DateTime().toString("yyyy/MM/dd");
+        key = dateTime + "/" + UUID.randomUUID().toString().replaceAll("-", "") + fileName;
+
+        try {
+            // 打开本地文件
+            File localFile = new File(filePath);
+            // 读取本地文件内容
+            InputStream inputStream = new FileInputStream(localFile);
+            // 创建对象元数据
+            ObjectMetadata objectMetadata = new ObjectMetadata();
+            // 设置对象大小
+            objectMetadata.setContentLength(localFile.length());
+
+            // 创建上传请求
+            PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, key, inputStream, objectMetadata);
+            // 执行上传操作
+            PutObjectResult putObjectResult = cosClient.putObject(putObjectRequest);
+
+            // 返回文件上传路径
+            String url = "https://" + bucketName + "." + "cos" + "." + ConstantPropertiesUtil.END_POINT + ".myqcloud.com" + "/" + key;
+            return url;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // 关闭 COS 客户端
+            cosClient.shutdown();
+        }
+        return null;
+    }
 
     /**
      * 文件上传

@@ -49,6 +49,7 @@ public class FederalClient {
 
     public String localTrain(String idString, String data_url) {
         Request request = Request.newBuilder()
+                .setType(idString)
                 .setUrl(data_url)
                 .build();
         Response resp = blockingStub.localTrain(request);
