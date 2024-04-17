@@ -1,7 +1,7 @@
 package com.federal_c1.federal_client1.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.federal.utils.R;
+
 import com.federal_c1.federal_client1.FederalClient;
 import com.federal_c1.federal_client1.model.Train;
 import com.federal_c1.federal_client1.model.VisualParams;
@@ -10,7 +10,7 @@ import com.federal_c1.federal_client1.service.TrainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
+import com.federal_c1.federal_client1.utils.R;
 
 @RestController
 @RequestMapping("/file")
@@ -47,6 +47,11 @@ public class FileController {
         Train one = trainService.getOne(wrapper);
         one.setDataAnalysis(visualParams.getAnalysis());
         trainService.updateById(one);
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 //        System.out.println(reply);
         return R.ok().put("reply", visualParams.getAnalysis()).put("n", visualParams.getN()).
                 put("n2", visualParams.getN2()).put("n3", visualParams.getN3()).put("x1", visualParams.getX1()).

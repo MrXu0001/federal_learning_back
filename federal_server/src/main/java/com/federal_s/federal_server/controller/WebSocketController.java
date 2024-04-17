@@ -15,14 +15,7 @@ import com.federal.utils.R;
 public class WebSocketController {
 
     @PostMapping("/pushToGroup")
-    public R pushToGroup(@RequestBody SendVO sendVO) {
-//        sendVO.getToUserIds().forEach(toUserId -> {
-//            try {
-//                WebSocketServer.sendInfo(sendVO.getMessage(), toUserId);
-//            } catch (IOException e) {
-//                throw new RuntimeException(e);
-//            }
-//        });
+    public R pushToGroup(@RequestBody SendVO sendVO) {  // 发给指定群体
         for (String toUserId : sendVO.getToUserIds()) {
             try {
                 WebSocketServer.sendInfo(sendVO.getMessage(), toUserId);
@@ -40,7 +33,7 @@ public class WebSocketController {
     }
 
     @PostMapping("/push/all")
-    public R pushToAll(@RequestBody String message) {
+    public R pushToAll(@RequestBody String message) {  // 发给所有人
         WebSocketServer.sendAll(message);
         return R.ok("消息发送成功");
     }
